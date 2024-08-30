@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Navigation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #f0f0f0, #ff6f61);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #ff6f61;
+            margin-bottom: 20px;
+            transition: font-size 0.3s ease;
+        }
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 2px solid #ddd;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #ff6f61;
+            outline: none;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #ff6f61;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff4f43;
+            transform: scale(1.05);
+        }
+        #box {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #000;
+            border-radius: 8px;
+            background-color: #f0f0f0;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .visible {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            input[type="text"], button {
+                width: calc(100% - 16px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Enter Your Name</h1>
+        <input type="text" id="nameInput" placeholder="Type a name" aria-label="Name input" />
+        <button onclick="checkName()">Submit</button>
+        <div id="box" role="alert"></div>
+    </div>
+
+    <!-- Audio element for warning sound -->
+    <audio id="warningSound" src="000.mp3" preload="auto"></audio>
+
+    <script>
+        function checkName() {
+            var nameInput = document.getElementById('nameInput').value.trim().toLowerCase();
+            var box = document.getElementById('box');
+            var warningSound = document.getElementById('warningSound');
+
+            // Extract the first name from full name if provided
+            var firstName = nameInput.split(' ')[0];
+
+            box.classList.add('visible'); // Ensure the box is visible for all cases
+
+            if (firstName === 'purushottam') {
+                box.innerHTML = 'Redirecting to <a href="purushottam.html">purushottam.html</a>';
+                setTimeout(function() {
+                    window.location.href = 'purushottam.html';
+                }, 2000); // Delay redirect to allow user to read the message
+            } else if (firstName === 'ert') {
+                box.innerHTML = 'Redirecting to <a href="ert.html">ert.html</a>';
+                setTimeout(function() {
+                    window.location.href = 'ert.html';
+                }, 2000); // Delay redirect to allow user to read the message
+            } else {
+                box.innerHTML = 'Name not recognized. Please try again.';
+                warningSound.play(); // Play warning sound if name is not recognized
+            }
+        }
+    </script>
+</body>
+</html>
